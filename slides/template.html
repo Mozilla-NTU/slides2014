@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Template</title>
+    <link rel="stylesheet" href="../reveal.js-2.6.2/css/reveal.min.css"/>
+    <link rel="stylesheet" href="../reveal.js-2.6.2/css/theme/default.css" id="theme"/>
+    <link rel="stylesheet" href="../reveal.js-2.6.2/lib/css/zenburn.css"/>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <!-- Your content goes here -->
+        <section>
+          <h1>JavaScript</h1>
+          <pre><code class="javascript">console.log("Hello World");</code></pre>
+        </section>
+        <section>
+          <h2>Numbers</h2>
+          Numbers in JavaScript are IEEE-754 double precision format.
+          <img src="../images/IEEE_754_Double_Floating_Point_Format.svg"/>
+          <small>http://upload.wikimedia.org/wikipedia/commons/a/a9/IEEE_754_Double_Floating_Point_Format.svg</small>
+          <br/>
+          +/- (2^53 - 1) maximum int value.
+          <pre><code class="javascript">
+            Math.pow(2, 53) === Math.pow(2, 53) + 1; // true
+          </code></pre>
+          Infinity, -Infinity, NaN, 0, -0.
+          <pre><code class="javascript">
+            0.1 + 0.2 === 0.3; // false
+          </code></pre>
+          <!-- End of your content -->
+        </section>
+      </div>
+    </div>
+    <script src="../reveal.js-2.6.2/lib/js/head.min.js"></script>
+    <script src="../reveal.js-2.6.2/js/reveal.js"></script>
+    <script>
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        dependencies: [
+           { src: '../reveal.js-2.6.2/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        ],
+      });
+    </script>
+  </body>
+</html>
+
