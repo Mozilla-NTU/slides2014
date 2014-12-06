@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Developer Tools</title>
+        <link rel="stylesheet" href="../reveal.js-2.6.2/css/reveal.min.css"/>
+        <link rel="stylesheet" href="../reveal.js-2.6.2/css/theme/default.css" id="theme"/>
+        <link rel="stylesheet" href="../reveal.js-2.6.2/lib/css/zenburn.css"/>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h2>Developer Tools</h2>
+          <ul>
+            <li>Layout and Style inspector</li>
+            <li>JavaScript debugging</li>
+            <li>Performance monitoring</li>
+            <li>Responsive view</li>
+            <li>Canvas, Web Audio, Storage inspector</li>
+          </ul>
+          <br><br>
+          <p>If you are a web developer, you NEED it.</p>
+        </section>
+        <section>
+          <h2>Page Inspector</h2>
+          <ul>
+            <li>View and Modify HTML</li>
+            <li>Walk the DOM</li>
+            <li>Examine Box model</li>
+            <li>Look at styles for each DOM element.</li>
+            <li>Ctrl-Shift-C <br />(Cmd-Option-C on the Mac &amp; Linux)</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Web Console</h2>
+          <ul>
+            <li>View warnings and errors
+            <ul><li>From JavaScript</li>
+                <li>From CSS</li>
+                <li>From network</li></ul>
+            </li>
+            <li>Instant REPL</li>
+            <li>Special helper commands, like help()</li>
+            <li>Control-Shift-K<br />(Command-Option-K on the Mac)</li>
+          </ul>
+          <script>
+            console.log("--------> HELLO NTU! <--------");
+            setTimeout(function() {
+              throw "YUP, I'm throwing errors";
+            }, 5000);
+          </script>
+        </section>
+        <section>
+          <h2>JavaScript Debugger</h2>
+          <ul>
+            <li>Examine JavaScript code</li>
+            <li>Set breakpoints</li>
+            <li>Pause on exceptions</li>
+            <li>Pause on events (click)</li>
+            <li>Step through code</li>
+            <li>Control-Shift-S<br />
+            (Command-Option-S on the Mac).</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Network Monitor</h2>
+          <ul>
+            <li>Inspect all network requests
+            <ul><li>images, css/js files, ajax</li></ul></li>
+            <li>Examine request</li>
+            <li>Examine response</li>
+            <li>Timeline</li>
+            <li>Edit and resend</li>
+          </ul>
+        </section>
+        <section>
+          <h2>JavaScript Profiler</h2>
+          <ul>
+            <li>What is JavaScript doing?</li>
+            <li>Hot functions</li>
+            <li>Where to optimize</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Useful stuff</h2>
+          <ul>
+            <li>Responsive Design View (Ctrl-Shift-M)</li>
+            <li>Developer Toolbar (Shift-F2)</li>
+            <li>3D view</li>
+            <li>Paint Flashing Tool</li>
+            <li>Device Debugging with WebIDE</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Demo Time</h2>
+          <p>JS Fiddle</p>
+          <a href="http://jsfiddle.net/">http://jsfiddle.net/</a>
+          <p>Code, manipulate, run web pages on the fly</p>
+        </section>
+      </div>
+    </div>
+        <script src="../reveal.js-2.6.2/lib/js/head.min.js"></script>
+        <script src="../reveal.js-2.6.2/js/reveal.js"></script>
+        <script>
+         Reveal.initialize({
+             controls: true,
+             progress: true,
+             history: true,
+             dependencies: [
+                 { src: '../reveal.js-2.6.2/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+             ],
+         });
+        </script>
+  </body>
+</html>
