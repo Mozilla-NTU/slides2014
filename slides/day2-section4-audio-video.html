@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Template</title>
+    <link rel="stylesheet" href="../reveal.js-2.6.2/css/reveal.css"/>
+    <link rel="stylesheet" href="../reveal.js-2.6.2/css/theme/beige.css" id="theme"/>
+    <link rel="stylesheet" href="../reveal.js-2.6.2/lib/css/zenburn.css"/>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1>Audio &amp; Video</h1>
+        </section>
+        <section>
+          <h2>Pulse Coded Modulation</h2>
+          PCM streams are made up of a sample rate: how frequently the
+          amplitude is measured (ex. 320 Mbps), and bit depth: how many
+          possible digital values can be represented by one sample.
+        </section>
+        <section>
+          <h2>Compression</h2>
+          The Digital to Audio Converter (DAC) on your computer's soundcard
+          expects PCM (HD Audio or AC'97), but PCM is large and therefore
+          expensive to store and transmit.
+        </section>
+        <section>
+          <h2>Lossy vs Lossless Compression</h2>
+          Lossless compression allows us to more efficiently represent the
+          same uncompressed data.  Lossy compression sacrifices fidelity for
+          size.  Lossy compression allows you to store thousands of songs on
+          your portable media player.  Lossless compression allows you to store
+          and play media that sounds fantastic on your expensive audio playing
+          equipment.
+        </section>
+        <section>
+          <h2>Codecs</h2>
+          Codecs are how the media data is represented, or encoded.  Some
+          codecs are lossy like MP3, some are lossless like FLAC.  Most codecs
+          are encumbered by patents. :(
+        </section>
+        <section>
+          <h2>Containers</h2>
+          Containers such as WAV, MP4, and Ogg represent the meta-data of a
+          media file such as artist or duration, subtitles, etc.  Containers,
+          in addition to their meta-data, will contain streams of audio or
+          video encoded via a specific codec.
+        </section>
+        <section>
+          <h2>File Extension</h2>
+          Sometimes used by OS to determine what program should open what file.
+          Unreliabe; anyone can change the file extension of a given file, but
+          that does not change the encoding (how the bits are arranged) or the
+          container (how the meta-data and streams are packaged).
+        </section>
+        <section>
+          <h2>Playlists</h2>
+          Playlist files are used by media playing applications to play
+          subsequent mediums.  Browsers do not understand playlist files, but
+          playlist files can easily be
+          <a href="https://github.com/nickdesaulniers/javascript-playlist-parser">parsed</a>
+          in JavaScript.
+        </section>
+        <section>
+          <h2>Protocol</h2>
+          How are the bits transferred from one machine to another?  On the
+          Web, HTTP is the most familiar, but there are other protocols used
+          when streaming media such as RTSP and ICY.
+        </section>
+        <section>
+          <h2>Know Your Terms</h2>
+          Codecs, containers, file extensions, playlist files, and protocols
+          are not equivalent.  Ex. Media A could be aac encoded, in an MP4
+          container, with a .m4a extension, listed in a m3u playlist file,
+          served over ICY.
+        </section>
+        <section>
+          <h2>Hardware Acceleration</h2>
+          Media can be decoded to PCM in software or in hardware.  Application
+          Specific Integrated Circuits (ASICs) can be faster and more power
+          efficient than General Purpose Processors.  Mobile friendly.  They
+          can also be patent encumbered.
+        </section>
+        <section>
+          <h2>Source tags</h2>
+          Both &lt;audio&gt; and &lt;video&gt; tags support nested
+          &lt;source&gt; tags of different encodings.
+          <pre><code>
+            &lt;audio controls&gt;
+              &lt;source src="foo.ogg" type="audio/ogg"/&gt;
+              &lt;source src="foo.mp3" type="audio/mp3"/&gt;
+              Sorry, you're browser doesn't support ogg or mp3 codecs
+              (or possibly audio tags).
+            &lt;/audio&gt;
+          </code></pre>
+        </section>
+        <section>
+          <h2>Feature Detecting Codec Support</h2>
+          <pre><code>
+            function canPlayOgg () {
+              var a = document.createElement('audio');
+              return !!(a.canPlayType &amp;&amp;
+                        a.canPlayType('audio/ogg; codecs="vorbis"')
+                         .replace(/no/, ''));
+            };
+
+            canPlayOgg(); // true or false
+          </code></pre>
+          <a href="http://diveintohtml5.info/everything.html#audio">
+            More feature detection
+          </a>
+        </section>
+        <section>
+          <h2>Audio</h2>
+          <audio controls>
+            <source src="../media/lateralus_clip.ogg" type="audio/ogg"/>
+            <source src="../media/lateralus_clip.mp3" type="audio/mp3"/>
+          </audio>
+          <pre>
+            <code>
+              &lt;audio controls&gt;
+                &lt;source src="../media/lateralus_clip.ogg" type="audio/ogg"/&gt;
+                &lt;source src="../media/lateralus_clip.mp3" type="audio/mp3"/&gt;
+              &lt;/audio&gt;
+            </code>
+          </pre>
+        </section>
+        <section>
+          <h2>Out of Control</h2>
+          <audio id="noControls">
+            <source src="../media/lateralus_clip.ogg" type="audio/ogg"/>
+            <source src="../media/lateralus_clip.mp3" type="audio/mp3"/>
+          </audio>
+          <button id="play">Play/Pause</button>
+          <button id="volUp">Volume+</button>
+          <button id="volDown">Volume-</button>
+          <input id="seek" type="range" value="" max=""/>
+          <script>
+            var audio = document.getElementById("noControls");
+            var play = document.getElementById("play");
+            var volUp = document.getElementById("volUp");
+            var volDown = document.getElementById("volDown");
+            var seek = document.getElementById("seek");
+            var playing = false;
+
+            play.addEventListener("click", function (e) {
+              playing = !playing;
+              if (playing) {
+                audio.play();
+              } else {
+                audio.pause();
+              }
+            });
+
+            function changeVol (up) {
+              if (up) {
+                audio.volume += 0.1;
+              } else {
+                audio.volume -= 0.1;
+              }
+            };
+
+            volUp.addEventListener("click", function () {
+              changeVol(true);
+            });
+
+            volDown.addEventListener("click", function () {
+              changeVol(false);
+            });
+
+            audio.addEventListener("timeupdate", function (e) {
+              seek.value = audio.currentTime;
+            });
+
+            seek.min = seek.value = audio.seekable.start(0);
+            seek.max = audio.seekable.end(0);
+            seek.addEventListener("change", function (e) {
+              audio.currentTime = seek.value;
+            });
+          </script>
+        </section>
+        <section>
+          <pre><code>
+            &lt;audio id="noControls"&gt;
+              &lt;source src="../media/lateralus_clip.ogg" type="audio/ogg"/&gt;
+              &lt;source src="../media/lateralus_clip.mp3" type="audio/mp3"/&gt;
+            &lt;/audio&gt;
+            &lt;button id="play">Play/Pause&lt;/button&gt;
+            &lt;button id="volUp">Volume+&lt;/button&gt;
+            &lt;button id="volDown">Volume-&gt;/button&gt;
+            &lt;input id="seek" type="range" value="" max=""/&gt;
+            &lt;script&gt;
+              var audio = document.getElementById("noControls");
+              var play = document.getElementById("play");
+              var volUp = document.getElementById("volUp");
+              var volDown = document.getElementById("volDown");
+              var seek = document.getElementById("seek");
+              var playing = false;
+
+              play.addEventListener("click", function (e) {
+                playing = !playing;
+                if (playing) {
+                  audio.play();
+                } else {
+                  audio.pause();
+                }
+              });
+
+              function changeVol (up) {
+                if (up) {
+                  audio.volume += 0.1;
+                } else {
+                  audio.volume -= 0.1;
+                }
+              };
+
+              volUp.addEventListener("click", function () {
+                changeVol(true);
+              });
+
+              volDown.addEventListener("click", function () {
+                changeVol(false);
+              });
+
+              audio.addEventListener("timeupdate", function (e) {
+                seek.value = audio.currentTime;
+              });
+
+              seek.min = seek.value = audio.seekable.start(0);
+              seek.max = audio.seekable.end(0);
+              seek.addEventListener("change", function (e) {
+                audio.currentTime = seek.value;
+              });
+            &lt;/script&gt;
+          </code></pre>
+        </section>
+        <section>
+          <h2>Events</h2>
+          <audio id="audioA" controls>
+            <source src="../media/lateralus_clip.ogg" type="audio/ogg"/>
+            <source src="../media/lateralus_clip.mp3" type="audio/mp3"/>
+          </audio>
+          <br>
+          <audio id="audioB" controls>
+            <source src="../media/lateralus_clip.ogg" type="audio/ogg"/>
+            <source src="../media/lateralus_clip.mp3" type="audio/mp3"/>
+          </audio>
+          <script>
+            var audioA = document.getElementById("audioA");
+            var audioB = document.getElementById("audioB");
+
+            audioA.addEventListener("ended", function () {
+              audioB.currentTime = 0;
+              audioB.play();
+            });
+
+            audioB.addEventListener("ended", function () {
+              audioA.currentTime = 0;
+              audioA.play();
+            });
+          </script>
+          <pre><code>
+            &lt;audio id="audioA" controls&gt;
+              &lt;source src="../media/lateralus_clip.ogg" type="audio/ogg"/&gt;
+              &lt;source src="../media/lateralus_clip.mp3" type="audio/mp3"/&gt;
+            &lt;/audio&gt;
+            &lt;br/&gt;
+            &lt;audio id="audioB" controls&gt;
+              &lt;source src="../media/lateralus_clip.ogg" type="audio/ogg"/&gt;
+              &lt;source src="../media/lateralus_clip.mp3" type="audio/mp3"/&gt;
+            &lt;/audio&gt;
+            &lt;script&gt;
+              var audioA = document.getElementById("audioA");
+              var audioB = document.getElementById("audioB");
+
+              audioA.addEventListener("ended", function () {
+                audioB.currentTime = 0;
+                audioB.play();
+              });
+
+              audioB.addEventListener("ended", function () {
+                audioA.currentTime = 0;
+                audioA.play();
+              });
+            &lt;/script&gt;
+          </code></pre>
+          <p>More events at <a href="http://areweplayingyet.com/">Are We Playing Yet?</a></p>
+        </section>
+        <section>
+          <h2>Video</h2>
+          <video controls>
+            <source src="../media/bunny.webm" type="video/webm"/>
+            <source src="../media/bunny.mp4" type="video/mp4"/>
+          </video>
+          <pre><code>
+            &lt;video controls&gt;
+              &lt;source src="../media/bunny.webm" type="video/webm"/&gt;
+              &lt;source src="../media/bunny.mp4" type="video/mp4"/&gt;
+            &lt;/video&gt;
+          </code></pre>
+        </section>
+        <section>
+          <h2>Mixing Video and Canvas 2D</h2>
+          <a href="http://html5doctor.com/demos/video-canvas-magic/demo2.html">Demo</a>
+        </section>
+      </div>
+    </div>
+    <script src="../reveal.js-2.6.2/lib/js/head.min.js"></script>
+    <script src="../reveal.js-2.6.2/js/reveal.js"></script>
+    <script>
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        dependencies: [
+           { src: '../reveal.js-2.6.2/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        ],
+      });
+    </script>
+  </body>
+</html>
+
