@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Template</title>
+    <link rel="stylesheet" href="../reveal.js-2.6.2/css/reveal.css"/>
+    <link rel="stylesheet" href="../reveal.js-2.6.2/css/theme/beige.css" id="theme"/>
+    <link rel="stylesheet" href="../reveal.js-2.6.2/lib/css/zenburn.css"/>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1>SVG, Canvas, WebGL</h1>
+        </section>
+        <section>
+          <h2>SVG</h2>
+          Scalable Vector Graphics
+          <br/>
+          <svg width="1000px" height="100px" style="overflow: initial;">
+            <rect width="200px" height="100px" fill="blue" stroke="red"/>
+            <circle cx="400px" cy="100px" r="100px" fill="green" stroke="orange"/>
+          </svg>
+          <pre><code>
+              &lt;svg&gt;
+                &lt;rect width="200px" height="100px" fill="blue"
+                      stroke="red"/&gt;
+                &lt;circle cx="400px" cy="100px" r="100px" fill="green"
+                        stroke="orange"/&gt;
+              &lt;/svg&gt;
+          </code></pre>
+        </section>
+        <section>
+          <h2>Benefits</h2>
+          Easy to scale image.  Data stored in XML derivative can be searched,
+          indexed, or scripted.  Retained mode graphics.
+        </section>
+        <section>
+          <h2>Scaling</h2>
+          <img src="../images/circle50.png" style="border: initial;"/>
+          <img src="../images/circle50.png" style="border: initial;" width="100px" height="100px"/>
+          <svg>
+            <circle fill="lime" r="25" cx="25%" cy="50%"/>
+            <circle fill="lime" r="50" cx="75%" cy="50%"/>
+          </svg>
+          <p>
+            Image scaling vs SVG.
+          </p>
+        </section>
+        <section>
+          <h2>Programmatically creating SVG</h2>
+          Uses a seperate namespace.
+          <a>http://www.w3.org/2000/svg</a> vs XHTML's <a>http://www.w3.org/1999/xhtml</a>.
+          <br/>
+          <svg id="slide4SVG"></svg>
+          <script>
+            var ns = "http://www.w3.org/2000/svg";
+            var circle = document.createElementNS(ns, "circle");
+            circle.setAttribute("fill", "lime");
+            circle.setAttribute("r", "25");
+            circle.setAttribute("cx", "50%");
+            circle.setAttribute("cy", "50%");
+            document.getElementById("slide4SVG").appendChild(circle);
+          </script>
+          <pre><code>
+            &lt;svg id="slide4SVG"&gt;&lt;/svg&gt;
+            &lt;script&gt;
+              var ns = "http://www.w3.org/2000/svg";
+              var circle = document.createElementNS(ns, "circle");
+              circle.setAttribute("fill", "lime");
+              circle.setAttribute("r", "25");
+              circle.setAttribute("cx", "50%");
+              circle.setAttribute("cy", "50%");
+              document.getElementById("slide4SVG").appendChild(circle);
+            &lt;/script&gt;
+          </code></pre>
+        </section>
+        <section>
+          <h2>Canvas (Two Dimensional Context)</h2>
+          Imediate mode graphics.
+          <a href="https://github.com/nickdesaulniers/canvas2dcontext/tree/master/examples">Detour</a>
+        </section>
+        <section>
+          <h2>WebGL</h2>
+          <p>
+            Canvas in a three dimensional context.  Can also draw two
+            dimensions very quickly.
+          </p>
+        </section>
+        <section>
+          <h2>Shaders</h2>
+          <p>
+            A shader program consists of one
+            vertex shader and one fragment shader.  Shaders can be created
+            programmatically.  A webgl context can have many shader programs.
+          </p>
+          <img src="http://nickdesaulniers.github.io/RawWebGL/pipeline.gif"/>
+        </section>
+        <section>
+          <h2>How much work does it take to draw a triangle?</h2>
+          <canvas id="glTriangle" width="600px" height="400px" style="border: 1px solid red;"></canvas>
+            <script>
+              function createShader (gl, str, type) {
+                if (arguments.length !== 3) throw new Error("createShader needs 3 args");
+                var shader = gl.createShader(type);
+                gl.shaderSource(shader, str);
+                gl.compileShader(shader);
+
+                if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+                  throw new Error(gl.getShaderInfoLog(shader));
+                }
+                return shader;
+              };
+
+              function createProgram (gl, vstr, fstr) {
+                var program = gl.createProgram();
+                gl.attachShader(program, createShader(gl, vstr, gl.VERTEX_SHADER));
+                gl.attachShader(program, createShader(gl, fstr, gl.FRAGMENT_SHADER));
+                gl.linkProgram(program);
+                if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+                  alert("link error: \n" + JSON.stringify(gl.getProgramInfoLog(program)));
+                }
+                return program;
+              };
+              var ctx = document.getElementById("glTriangle").getContext("webgl");
+              ctx.bindBuffer(ctx.ARRAY_BUFFER, ctx.createBuffer());
+              ctx.bufferData(ctx.ARRAY_BUFFER, new Float32Array([
+                -0.5, -0.5,
+                 0.5, -0.5,
+                 0.0,  0.5
+              ]), ctx.STATIC_DRAW);
+              var program = createProgram(
+                ctx,
+                "attribute vec2 pos; void main () { gl_Position = vec4(pos, 0, 1); }",
+                "precision mediump float; void main () { gl_FragColor = vec4(0.3, 0.8, 0.6, 1); }"
+              );
+              ctx.useProgram(program);
+              var pos = ctx.getAttribLocation(program, "pos");
+              ctx.enableVertexAttribArray(pos);
+              // 2 points per vertex (x, y)
+              // float
+              // normalized (false)
+              // stride (0)
+              // offset (0)
+              ctx.vertexAttribPointer(program.vertexPosAttrib, 2, ctx.FLOAT, false, 0, 0);
+              // mode, first, count (3 points)
+              ctx.drawArrays(ctx.TRIANGLES, 0, 3);
+            </script>
+          </section>
+          <section>
+            <pre style="font-size: 10px;"><code class="javascript">
+              function createShader (gl, str, type) {
+                if (arguments.length !== 3) throw new Error("createShader needs 3 args");
+                var shader = gl.createShader(type);
+                gl.shaderSource(shader, str);
+                gl.compileShader(shader);
+
+                if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+                  throw new Error(gl.getShaderInfoLog(shader));
+                }
+                return shader;
+              };
+
+              function createProgram (gl, vstr, fstr) {
+                var program = gl.createProgram();
+                gl.attachShader(program, createShader(gl, vstr, gl.VERTEX_SHADER));
+                gl.attachShader(program, createShader(gl, fstr, gl.FRAGMENT_SHADER));
+                gl.linkProgram(program);
+                if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+                  alert("link error: \n" + JSON.stringify(gl.getProgramInfoLog(program)));
+                }
+                return program;
+              };
+
+              var ctx = document.getElementById("glTriangle").getContext("webgl");
+              ctx.bindBuffer(ctx.ARRAY_BUFFER, ctx.createBuffer());
+              ctx.bufferData(ctx.ARRAY_BUFFER, new Float32Array([
+                -0.5, -0.5,
+                 0.5, -0.5,
+                 0.0,  0.5
+              ]), ctx.STATIC_DRAW);
+              var program = createProgram(
+                ctx,
+                "attribute vec2 pos; void main () { gl_Position = vec4(pos, 0, 1); }",
+                "precision mediump float; void main () { gl_FragColor = vec4(0.3, 0.8, 0.6, 1); }"
+              );
+              ctx.useProgram(program);
+              var pos = ctx.getAttribLocation(program, "pos");
+              ctx.enableVertexAttribArray(pos);
+              // 2 points per vertex (x, y)
+              // float
+              // normalized (false)
+              // stride (0)
+              // offset (0)
+              ctx.vertexAttribPointer(program.vertexPosAttrib, 2, ctx.FLOAT, false, 0, 0);
+              // mode, first, count (3 points)
+              ctx.drawArrays(ctx.TRIANGLES, 0, 3);
+            </code></pre>
+        </section>
+        <section>
+          <h2>WebGL Demos</h2>
+          <a href="http://kripken.github.io/boon/screens/">Banabread</a>
+        </section>
+      </div>
+    </div>
+    <script src="../reveal.js-2.6.2/lib/js/head.min.js"></script>
+    <script src="../reveal.js-2.6.2/js/reveal.js"></script>
+    <script>
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        dependencies: [
+           { src: '../reveal.js-2.6.2/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        ],
+      });
+    </script>
+  </body>
+</html>
+
