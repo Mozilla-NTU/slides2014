@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>HTML5</title>
+    <link rel="stylesheet" href="../reveal.js-2.6.2/css/reveal.min.css"/>
+    <link rel="stylesheet" href="../reveal.js-2.6.2/css/theme/default.css" id="theme"/>
+    <link rel="stylesheet" href="../reveal.js-2.6.2/lib/css/zenburn.css"/>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1>HTML5</h1>
+          <h2>Standardized since Oct 28, 2014</h2>
+        </section>
+        <section>
+          <h2>Semantic Tags</h2>
+          <ul>
+            <li>Tags describe your content
+              <ul><li>article</li>
+                <li>aside</li>
+                <li>progress</li>
+                <li>section</li>
+                <li>time</li>
+                <li>...many more</li></ul>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Storage</h2>
+          <p>localStorage &amp; sessionStorage</p>
+          <ul>
+            <li>Stores key-value pairs</li>
+            <li>Syncronous API, no callbacks</li>
+            <li>Works very similar to regular JS Objects</li>
+            <li>Stores in file, instead of memory</li>
+          </ul>
+        </section>
+        <section>
+          <h2>localStorage API<h2>
+            <h4>Setting Items</h4>
+            <pre><code>
+          localStorage.setItem("myKey", "myValue");
+
+          // or
+
+          localStorage.myKey = "myValue";
+            </pre></code>
+            <h4>Getting Items</h4>
+            <pre><code>
+          var data = localStorage.getItem("myKey");
+
+          // or
+
+          var data = localStorage.myKey;
+            </pre></code>
+        </section>
+        <section>
+          <h2>localStorage API<h2>
+            <h4>Removing Items</h4>
+            <pre><code>
+          localStorage.removeItem("myKey");
+
+          // or
+
+          delete localStorage.myKey;
+            </pre></code>
+            <h4>Remove all Items</h4>
+            <pre><code>
+          localStorage.clear();
+            </pre></code>
+            <h4>How many items?</h4>
+            <pre><code>
+          var length = localStorage.length;
+            </pre></code>
+        </section>
+        <section>
+          <h2>What's the deal?</h2>
+          <table style="width: 100%;">
+            <tr>
+              <th>Session Storage</th>
+              <th>Local Storage</th>
+            </tr>
+            <tr>
+              <td><p>Survives page refresh</p></td>
+              <td><p>Survives browser close</p></td>
+            </tr>
+            <tr>
+              <td><p>Short life span</p></td>
+              <td><p>Longer life span</p></td>
+            </tr>
+            <tr>
+              <td>
+                <ul>
+                  <li>Shopping carts</li>
+                  <li>Breadcrumbs</li>
+                  <li>Navigation history</li>
+                </ul>
+              </td>
+              <td>
+                <ul>
+                  <li>Game high score</li>
+                  <li>Search history</li>
+                  <li>Access log</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td colspan=2><p style="text-align:center; margin-top: 1rem;">Stored client side. User can clear data.</p></td>
+            </tr>
+            <tr>
+              <td colspan=2><p style="text-align:center;">Synchronous API. Blocks UI.</p></td>
+            </tr>
+          </table>
+    </li>
+          </ul>
+        </section>
+        <section>
+          <h2>WebSQL</h2>
+          <ul>
+            <li>Traditional Database in browser</li>
+            <li>Exact same API as SQLite</li>
+            <li><a href="http://caniuse.com/sql-storage">Non-Standard</a></li>
+            <li>Firefox doesn't plan to support. Available in Chrome, Opera, Safari etc.</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Indexed DB</h2>
+          <ul>
+            <li>Proposed Web Standard</li>
+            <li>Asynchronous API</li>
+            <li>Larger storage limit
+              <ul><li>Firefox: No upper limit. User prompt 50MB+</li>
+                <li>Chrome: 20% of shared temporary storage</li>
+              </ul>
+            </li>
+            <li>NoSQL</li>
+            <li>Very Fast</li>
+            <li>Used heavily in Firefox OS</li>
+            <li>Firefox 16+ &mdash; Google Chrome 24+</li>
+            <ul>
+        </section>
+        <section>
+          <h2>Indexed DB</h2>
+          <h4>Connecting</h4>
+          <pre><code>
+          var request = window.indexedDB.open("MyDatabase");
+
+          request.onerror = function(event) {
+              console.log("failure");
+          };
+
+          request.onsuccess = function(event) {
+              console.log("success");
+              // now we can access the database
+          };
+          </pre></code>
+        </section>
+        <section>
+          <h2>Indexed DB</h2>
+          <h4>Retrieving Data</h4>
+          <pre><code>
+          var transaction = db.transaction(["customers"]);
+
+          var objectStore = transaction.objectStore("customers");
+
+          var request = objectStore.get("444-44-4444");
+
+          request.onerror = function(event) {
+            // Handle errors!
+          };
+
+          request.onsuccess = function(event) {
+            // Do something with the request.result!
+            alert("Name for SSN 444-44-4444 is " + request.result.name);
+          };
+          </pre></code>
+        </section>
+        <section>
+          <h2>Application Cache</h2>
+          <ul>
+            <li>Allows applications to run offline</li>
+            <li>Fetches assets. Stores locally</li>
+            <li>Browser no longer needs network</li>
+            <li>For offline, speed and less data use</li>
+          </ul>
+        </section>
+        <section>
+          <h2>App Cache, How to Use</h2>
+          <h4>Add manifest link to HTML</h4>
+          <pre><code>
+          &lt;html manifest="example.appcache"&gt;
+          ...
+          </pre></code>
+          <h4>Add Manifest File</h4>
+          <pre><code>
+          CACHE MANIFEST
+          # v1 - 2014-12-09
+          # This is a comment.
+          http://www.example.com/index.html
+          http://www.example.com/header.png
+          http://www.example.com/blah/blah
+          </pre></code>
+        </section>
+        <section>
+          <h2>Online/Offline events</h2>
+          <h4>Check if online</h4>
+          <pre><code>
+          if (navigator.isOnline) {
+            // YAAAY, we have network!
+          }
+          </pre></code>
+          <h4>Handle Events</h4>
+          <pre><code>
+          window.addEventListener('online',  updateOnlineStatus);
+          window.addEventListener('offline', updateOnlineStatus);
+          </pre></code>
+        </section>
+        <section>
+          <h2>Drag &amp; Drop</h2>
+          <ul>
+            <li>For on page elements
+              <ul><li>ex. WYSIWYG editing</li></ul>
+            </li>
+            <li>From desktop
+              <ul><li>ex. uploading files</li></ul>
+            </li>
+            <li>Many events, flexible
+              <ul><li>dragstart, dragover, dragleave<br />
+                drop, drag, dragend</li></ul>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Web Workers</h2>
+          <ul>
+            <li>JavaScript is Single-Threaded</li>
+            <li>Offload "work" to another thread</li>
+            <li>No shared memory
+              <ul><li>No access to window</li>
+                <li>Only pass "message"</li></ul>
+            </li>
+            <li>Can perform network requests</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Web Worker API</h2>
+          <pre><code>
+          var myWorker = new Worker("my_task.js");
+
+          myWorker.addEventListener("message", function (oEvent) {
+              console.log("Called back by the worker!\n");
+          }, false);
+
+          myWorker.postMessage(""); // start the worker.
+          </pre></code>
+        </section>
+        <section>
+          <h2>Device Orientation &amp; Motion</h2>
+          <ul>
+            <li>Detect rotation and movement</li>
+            <li>Accelerometer access</li>
+            <li>Experimental feature
+              <ul><li>Only in Chrome &amp; Firefox</li>
+                <li>no plans for IE or Safari</li></ul>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Device Orientation Code</h2>
+          <pre><code>
+          window.addEventListener("deviceorientation", handleOrientation, true);
+
+          function handleOrientation(event) {
+            var absolute = event.absolute;
+            var alpha    = event.alpha;
+            var beta     = event.beta;
+            var gamma    = event.gamma;
+
+            // Do stuff with the new orientation data
+          }
+          </pre></code>
+        </section>
+        <section>
+          <h2>Geolocation</h2>
+          <ul>
+            <li>Standardized</li>
+            <li>Uses GPS/AGPS to get location coordinates.</li>
+            <li>Must ask permission</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Geolocation API</h2>
+          <pre><code>
+          // find user position
+          navigator.geolocation.getCurrentPosition(function(position) {
+            console.log(position.coords.latitude);
+            console.log(position.coords.longitude);
+          });
+
+          // watch user position, update as user moves
+          var watchID = navigator.geolocation.watchPosition(function(position) {
+              do_something(position.coords.latitude, position.coords.longitude);
+          });
+          </pre></code>
+        </section>
+        <section>
+          <h2>WebSockets</h2>
+          <ul>
+            <li>Exchange data between client &amp; server</li>
+            <li>Continuous full-duplex connection stream</li>
+            <li>Uses the <code>ws</code> protocol</li>
+            <li>W3C Working Draft</li>
+          </ul>
+        </section>
+        <section>
+          <h2>WebSocket API</h2>
+          <pre><code>
+// Create connection
+var mysocket = new WebSocket("ws://example.com/socketserver");
+
+// Send data when connection has opened
+mysocket.onopen = function () {
+   mysocket.send("Hello, World!");
+}
+
+// Receive data from server
+mysocket.onmessage = function (event) {
+    console.log(event.data);
+}
+          </code></pre>
+        </section>
+        <section>
+          <h2>WebRTC</h2>
+          <ul>
+            <li>Real-Time Communications on the Web</li>
+            <li>P2P video-confering without plugins</li>
+            <li>Built into browsers</li>
+            <li>JavaScript based APIs</li>
+            <li>Used by Firefox Hello</li>
+            <li>Uses <code>getUserMedia</code> to grab video/audio</li>
+          </ul>
+        </section>
+        <section>
+          <h2>getUserMedia</h2>
+          <video id="getUserMediaVideo" width="80%" height="80%" ></video>
+          <button id="startCapture">Start Capture</button>
+          <script type="text/javascript">
+           document.querySelector("#startCapture").addEventListener("click", function () {
+             navigator.getUserMedia = navigator.getUserMedia ||
+             navigator.mozGetUserMedia ||
+             navigator.webkitGetUserMedia;
+             navigator.getUserMedia({
+               video: true,
+               audio: true
+             }, function (localstream) {
+               var vid = document.querySelector("#getUserMediaVideo");
+               vid.src = URL.createObjectURL(localstream);
+               vid.play();
+             }, function (error) {
+               console.log("Error occured in getUserMedia", error);
+             });
+           }, false);
+          </script>
+        </section>
+        <section>
+          <h2>Using getUserMedia</h2>
+          <pre><code>
+// Cross-browser
+navigator.getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia ||
+                         navigator.webkitGetUserMedia;
+
+navigator.getUserMedia({
+    video: true,
+    audio: true
+}, function (localstream) {
+    var vid = document.querySelector("video");
+    vid.src = URL.createObjectURL(localstream);
+    vid.play();
+}, function (error) {
+    console.log("Error occured in getUserMedia", error);
+});
+          </code></pre>
+        </section>
+        <section>
+          <h2>Other useful WebAPIs</h2>
+          <ul>
+            <li>Contacts</li>
+            <li>Notifications</li>
+            <li>Battery Status</li>
+            <li>Screen Orientation</li>
+            <li>...check <a href="https://developer.mozilla.org/en-US/docs/WebAPI">MDN WebAPIs</a> page for more!</li>
+          </ul>
+        </section>
+        <section>
+          <h1>Questions?</h1>
+        </section>
+      </div>
+    </div>
+    <script src="../reveal.js-2.6.2/lib/js/head.min.js"></script>
+    <script src="../reveal.js-2.6.2/js/reveal.js"></script>
+    <script>
+     Reveal.initialize({
+       controls: true,
+       progress: true,
+       history: true,
+       dependencies: [
+         { src: '../reveal.js-2.6.2/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+       ],
+     });
+    </script>
+  </body>
+</html>

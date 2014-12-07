@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>BASICS OF HTML</title>
+        <link rel="stylesheet" href="../reveal.js-2.6.2/css/reveal.min.css"/>
+        <link rel="stylesheet" href="../reveal.js-2.6.2/css/theme/default.css" id="theme"/>
+        <link rel="stylesheet" href="../reveal.js-2.6.2/lib/css/zenburn.css"/>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h1>BASICS OF HTML</h1>
+                </section>
+                <section>
+                    <section>
+                        <h2>What is HTML ?</h2>
+                    </section>
+                    <section>
+                        <ul>
+                            <li>Hyper Text Markup Language</li>
+                            <li>A set of markup tags</li>
+                            <li>Tags describe document content</li>
+                            <li>Contain HTML tags and plain text</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>History</h2>
+                        <img src="../images/html-history.jpg">
+                    </section>
+                </section>
+                <section>
+                    <section><h2>Basic Structure</h2></section>
+                    <section>
+                        <pre><code contenteditable class="xml" style="font-size: 22px">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+     &lt;title&gt;My First Webpage&lt;/title&gt;
+  &lt;/head&gt;
+
+  &lt;body&gt;
+    This is my first homepage.
+    <!-- you won't see me on the page -->
+  &lt;/body&gt;
+
+&lt;/html&gt;
+                        </code></pre>
+                    </section>
+                    <section>
+                        <img src="../images/basic-html.jpg">
+                    </section>
+                </section>
+                <section>
+                    <h2>Document Type</h2>
+                    <img src="../images/document-type.png">
+                </section>
+
+                <section>
+                    <span><strong>Tags: </strong>opening/closing tag</span><br>
+                    <pre><code>&lt;a> &lt;/a></code></pre>
+                    <span><strong>Attributes: </strong>extra information<br>
+                        <pre><code>&lt;a id="alink" title="click me" href="facebook.com"> &lt;/a></code></pre></span>
+                    <span><strong>Elements: </strong>make up web pages</span>
+                    <pre><code>&lt;a class="link" id="alink" title="click me" href="facebook.com"&gt;link&lt;/a&gt;</code></pre>
+                </section>
+
+                <section>
+                    <section><h2>Tags in &lt;HEAD&gt;</h2><h4></h4></section>
+                    <section>
+                        <ul>
+                            <li>title</li>
+                            <pre><code>&lt;title> roody's home &lt;/title></code></pre>
+                            <li>meta</li>
+                            <pre><code>&lt;meta key name="keywords" content="goods, cheap"></code></pre>
+                            <li>script</li>
+                            <pre><code>&lt;script type="text/javascript">alert("hello"); &lt;/script></code></pre>
+                            <li>link</li>
+                            <pre><code>&lt;link type="text/css" href="main.css"></code></pre>
+                            <li>style</li>
+                            <pre><code>&lt;style> a{font-size: 14px;} &lt;/style></code></pre>
+                        </ul>
+                    </section>
+                </section>
+                <section>
+                    <section><h2>Tags in &lt;BODY&gt;</h2></section>
+                    <section>
+                        <h2>Popular Tags</h2>
+                        <ul>
+                            <li>Headings:   h1 ~ h6</li>
+                            <li>Paragraphs: p</li>
+                            <li>Formatting: b, strong, del, code </li>
+                            <li>Layout:     div, span</li>
+                            <li>Images:     img</li>
+                            <li>links:      a</li>
+                            <li>Lists:      ol, ul, li</li>
+                            <li>Tables:     table, td, tr, th</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <img src="../images/ntu-example.jpg">
+                    </section>
+                    <section>
+                        <h2>Forms</h2>
+                        input, textarea, select, button,
+                    </section>
+                    <section>
+                        <img src="../images/form.jpg">
+                    </section>
+                </section>
+                <section>
+                    <section><h2>LAYOUT</h2></section>
+                    <section>
+                        <img src="../images/messy_vs_clean.jpg">
+                    </section>
+                    <section>
+                        <img src="../images/web-layout.png">
+                    </section>
+                    <section>
+                        <h2>You need design it !</h2>
+                    </section>
+                </section>
+                <section>
+                    <h2>validate markup</h2>
+                    <img src="../images/validate.jpg" width="500">
+                </section>
+                <section>
+                    <h2>Best Practices</h2>
+                    <ul>
+                        <li>Always Declare a Doctype</li>
+                        <li>Use Meaningful Tags</li>
+                        <li>Use the Right HTML Element at the Right Place</li>
+                        <li>Difference between ID and Class</li>
+                        <li>Separate Content from Presentation</li>
+                        <li>Check page load speed</li>
+                        <li>Stylesheets on top, Scripts at bottom</li>
+                        <li>Validate Your Code</li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+        <script src="../reveal.js-2.6.2/lib/js/head.min.js"></script>
+        <script src="../reveal.js-2.6.2/js/reveal.js"></script>
+        <script>
+         Reveal.initialize({
+             controls: true,
+             progress: true,
+             history: true,
+             dependencies: [
+                 { src: '../reveal.js-2.6.2/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+             ],
+         });
+        </script>
+    </body>
+</html>
