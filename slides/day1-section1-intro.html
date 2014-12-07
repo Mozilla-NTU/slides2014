@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Template</title>
+    <link rel="stylesheet" href="../reveal.js-2.6.2/css/reveal.min.css"/>
+    <link rel="stylesheet" href="../reveal.js-2.6.2/css/theme/default.css" id="theme"/>
+    <link rel="stylesheet" href="../reveal.js-2.6.2/lib/css/zenburn.css"/>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <!-- Your content goes here -->
+        <section>
+          <h1>NTU HTML5 Bootcamp 2014</h1>
+        </section>
+        <section>
+          <h2>Instructors</h2>
+          <img src="../images/kaustav.jpg"/>
+          <img src="../images/oscar.png" height="316"/>
+          <img src="../images/nick.png" height="316"/>
+          <p>Kaustav Das Modak - <a href="https://twitter.com/kaustavdm">@KaustavDM</a></p>
+          <p>Oscar Tong - <a href="https://twitter.com/oscartong">@OscarTong</a></p>
+          <p>Nick Desaulniers - <a href="https://twitter.com/LostOracle">@LostOracle</a></p>
+        </section>
+        <section>
+          <h2>Syllabus</h2>
+          <p>Day 1</p>
+          <p>Day 2</p>
+          <p>Day 3</p>
+          <p>Day 4</p>
+        </section>
+        <section>
+          <h2>Where can I find these slides?</h2>
+          <p><a href="https://mozilla-ntu.github.io/slides2014/">https://mozilla-ntu.github.io/slides2014/</a></p>
+        </section>
+        <section>
+          <h2>The Web</h2>
+          <p>Secure execution of remote code.</p>
+          <p>No gatekeepers to publishing content.</p>
+          <p>Multiple vendors competing on performance and standards.</p>
+        </section>
+        <section>
+          <h2>Web vs Internet</h2>
+          <p>
+            The Internet is the physical infrastructure connecting all of our
+            devices.
+          </p>
+          <p>
+            The World Wide Web is software and protocols built on top
+            of the Internet.
+          </p>
+          <p>
+            We can build applications with Web
+            technologies, even if the physical connection has been severed.
+          </p>
+        </section>
+        <section>
+          <h2>Hello World</h2>
+          <pre><code>
+            &lt;!DOCTYPE html&gt;
+            &lt;html&gt;
+              &lt;head&gt;
+                &lt;meta charset="utf-8"/&gt;
+              &lt;/head&gt;
+              &lt;body&gt;
+                &lt;p&gt;Hello World!&lt;/p&gt;
+              &lt;/body&gt;
+            &lt;/html&gt;
+          </code></pre>
+          <p>index.html</p>
+        </section>
+        <section>
+          <h2>Writing your code</h2>
+          <ul>
+            <li>Terminal Based: Vim, Emacs, Nano, Ed</li>
+            <li>GUI: Sublime Text, TextMate, MacVim, Notepad, Notepad++</li>
+            <li>IDE: Eclipse, NetBeans, Visual Studio, WebIDE</li>
+            <li>WYSIWYG: DreamWeaver</li>
+            <li>Word Processors: Word, Writer</li>
+          </ul>
+          <p>Would recommend against WYSIWYG and Word Processors.</p>
+        </section>
+        <section>
+          <h2>Viewing your code</h2>
+          <ul>
+            <li>Open the file in a browser.</li>
+            <li>python -m SimpleHTTPServer &lt;port&gt;</li>
+            <li>Install <a href="http://httpd.apache.org/">Apache</a> (<a href="http://www.wampserver.com/en/">WampServer</a>) or <a href="http://nginx.org/">NGINX</a></li>
+            <li><a href="https://pages.github.com/">GitHub Pages</a></li>
+          </ul>
+        </section>
+        <!-- End of your content -->
+      </div>
+    </div>
+    <script src="../reveal.js-2.6.2/lib/js/head.min.js"></script>
+    <script src="../reveal.js-2.6.2/js/reveal.js"></script>
+    <script>
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        dependencies: [
+           { src: '../reveal.js-2.6.2/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        ],
+      });
+    </script>
+  </body>
+</html>
+
