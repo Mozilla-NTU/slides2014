@@ -25,6 +25,7 @@ div {
 }
 
 #message_box {
+  clear: both;
   border: 1px solid black;
   min-height: 40px;
   background-color: white;

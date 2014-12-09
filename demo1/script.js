@@ -7,12 +7,18 @@ document.addEventListener('DOMContentLoaded', function () {
     var p = document.createElement('p');
     p.textContent = msg;
     messageBox.appendChild(p);
+    messageInput.value = '';
+    messageInput.focus();
   };
 
   button.addEventListener('click', function () {
     addToMessageBox(messageInput.value);
-    messageInput.value = '';
-    messageInput.focus();
   }, false);
+
+  messageInput.addEventListener('keyup', function (e) {
+    if (e.keyCode === 13) {
+      addToMessageBox(messageInput.value);
+    }
+  });
 });
 
