@@ -1,3 +1,4 @@
+##Usage
 Example usage from client side JavaScript:
 
 ```javascript
@@ -13,3 +14,6 @@ socket.send(JSON.stringify({
   content: "Hello world!",
 }));
 ```
+
+##Running the Server
+Install dependencies `npm install` then start the server `npm start`.
