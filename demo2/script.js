@@ -49,5 +49,5 @@ window.addEventListener('DOMContentLoaded', function () {
         messageBox.innerHTML = "";
         messageInput.value = "";
         messageInput.focus();
-    }, false)
+    }, false);
 });
