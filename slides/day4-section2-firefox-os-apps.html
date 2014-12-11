@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Firefox OS apps</title>
+    <link rel="stylesheet" href="../reveal.js-2.6.2/css/reveal.min.css"/>
+    <link rel="stylesheet" href="../reveal.js-2.6.2/css/theme/fxos.css" id="theme"/>
+    <link rel="stylesheet" href="../reveal.js-2.6.2/lib/css/zenburn.css"/>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <!-- Your content goes here -->
+        <section data-background="../images/firefox-os-logo.png" data-background-size="100vw">
+          <br><br><br><br><br><br><br><br><br><br>
+          <p><a href="https://mozilla.org/firefox/os">Official website</a></p>
+        </section>
+
+        <section>
+          <section>
+            <h2>Open-source. HTML5.</h2>
+            <p>Bringing the next billions of people online.</p>
+          </section>
+
+          <section>
+            <h2>28 countries</h2>
+            <p>Including India, Bangladesh &amp; Philippines.</p>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>Firefox OS apps</h2>
+            <p class="fragment">= Mobile web-apps + <code>manifest.webapp</code>.</p>
+            <hr class="fragment">
+            <p class="fragment">HTML5</p>
+            <p class="fragment">CSS3</p>
+            <p class="fragment">JavaScript</p>
+            <p class="fragment">WebAPIs</p>
+          </section>
+
+          <section>
+            <h2>Security model</h2><hr>
+            <div class="fragment"><p>Hosted</p><hr></div>
+            <div class="fragment"><p>Privileged</p><hr></div>
+            <div class="fragment"><p>Certified</p><hr></div>
+            <p class="fragment">
+              <a href="https://developer.mozilla.org/en-US/Firefox_OS/Security/Security_model">
+                Firefox OS Security Overview
+              </a>
+            </p>
+          </section>
+        </section>
+
+      </div>
+    </div>
+    <script src="../reveal.js-2.6.2/lib/js/head.min.js"></script>
+    <script src="../reveal.js-2.6.2/js/reveal.js"></script>
+    <script>
+     Reveal.initialize({
+       controls: true,
+       progress: true,
+       history: true,
+       dependencies: [
+         { src: '../reveal.js-2.6.2/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+       ],
+     });
+    </script>
+  </body>
+</html>
