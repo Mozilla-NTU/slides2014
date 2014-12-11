@@ -141,8 +141,7 @@ body {
 /* Extra */
 hr {
   background-color: #fff;
-  border: none;
+  margin: 3rem 0px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   height: 1px;
-  box-shadow: 0px 0px 1px #fefefe;
-  margin: 3rem 0;
 }
