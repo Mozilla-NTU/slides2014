@@ -1,7 +1,7 @@
 window.addEventListener('DOMContentLoaded', function () {
     var messageInput = document.querySelector('#message_input');
     var messageBox = document.getElementById('message_box');
-    var button = document.getElementsByTagName('button')[0];
+    var button = document.getElementsByTagName('button')[1];
     var messages = getMessages();
 
     // Insert existing messages in messageBox
@@ -35,6 +35,7 @@ window.addEventListener('DOMContentLoaded', function () {
     };
 
     button.addEventListener('click', function () {
+        sendMessageToServer();
         addToMessageBox(messageInput.value);
     }, false);
 
@@ -50,4 +51,84 @@ window.addEventListener('DOMContentLoaded', function () {
         messageInput.value = "";
         messageInput.focus();
     }, false);
+
+
+
+    var client = new WebSocket('ws://10.27.165.11:3001');
+    client.addEventListener('open', function(){
+        console.log('connected');
+        getUserList();
+    });
+    client.addEventListener('close', function(){
+        console.warn('we are disconnected');
+    });
+    client.addEventListener('message', function(event){
+        console.log('Receive from server:', event.data);
+
+        var data = JSON.parse(event.data);
+        switch(data.type){
+            case 'userlist':
+                showUserList(data.content);
+                break;
+        }
+    });
+
+
+    function getName(){
+        var nameInput = document.getElementById('name_input');
+        return nameInput.value;
+    }
+
+
+    function register(){
+        var name = getName();
+        if(name) {
+            var msg = {
+                from: name,
+                type: 'login',
+                content: ''
+            };
+            client.send(JSON.stringify(msg));
+        }
+    }
+
+    function getUserList(){
+        var msg = {
+            from: getName(),
+            type: 'userlist',
+            content: ''
+        };
+        client.send(JSON.stringify(msg));
+    }
+
+    function showUserList(list){
+        var userlistBox = document.getElementById('userlist_box');
+        for(var i=0; i<list.length; ++i){
+            var userItem = document.createElement('div');
+            userItem.textContent = list[i];
+            userlistBox.appendChild(userItem);
+        }
+    }
+
+    function sendMessageToServer(){
+        var receiverInput = document.getElementById('receiver_input'),
+            messageInput = document.getElementById('message_input'),
+            receiverName = receiverInput.value,
+            messageContent = messageInput.value;
+        if(receiverName && messageContent){
+            var msg ={
+                from: getName(),
+                type: 'msg',
+                to: receiverName,
+                content: messageContent
+            };
+            client.send(JSON.stringify(msg));
+        }
+        else {
+            alert('Please fill in receiver name and message content!');
+        }
+    }
+
+    var registerBtn = document.getElementById('register_button');
+    registerBtn.addEventListener('click', register);
 });
