@@ -1,4 +1,6 @@
-const PORT = 3000;
+var _ = require('underscore');
+
+const PORT = 3001;
 const RATE_LIMIT = 400; // ms
 var numClients = 0;
 
@@ -54,13 +56,18 @@ new (require("ws").Server)({ port: PORT }).on("connection", function (socket) {
       console.log(msg + " -> " + validationFail);
       return;
     } else {
-      console.log(msg);
+
+      //here is where we receive the messages from clients
+      handleReceivedMessage(JSON.parse(msg), socket);
+      socket.on('close', function(){
+        
+      });
     }
 
     this.clients.forEach(function (client) {
       if (client !== socket) {
         try {
-          client.send(msg);
+          //client.send(msg);
         } catch (e)  {
           console.error("did not send to disconnected client");
         }
@@ -68,9 +75,100 @@ new (require("ws").Server)({ port: PORT }).on("connection", function (socket) {
     });
   }.bind(this));
 
-  socket.on("close", function () { console.log(--numClients + " clients"); });
+  socket.on("close", function () { 
+
+    for(var clientName in clients){
+      if(clients[clientName] == socket){
+        delete clients[clientName];
+        console.log(--numClients + " clients, -" + clientName);
+      }
+    }
+  });
   console.log(++numClients + " clients");
 });
 
 console.log("Listening on port " + PORT);
 
+
+
+/**
+protocol:
+{
+  from:<YOUR_NAME>, 
+  type:<text|login|logout|...>, 
+  content:<CONTENT>
+}
+*/
+function handleReceivedMessage(msgObj, socket){
+  console.log('[Receive]', msgObj);
+
+  //check the type
+  var result;
+  switch(msgObj.type){
+    case 'text':
+      result = {type:'echo', from:'server', content:msgObj};
+      forwardMsg(msgObj, socket);
+      break;
+
+    case 'msg':
+      result = forwardMsg(msgObj, socket);
+      break;
+
+    case 'login':
+      result = loginUser(msgObj, socket);
+      break;
+
+    case 'userlist':
+      result = getUserList();
+      break;
+
+    default:
+      result = {type:'error', from:'server', content:'unsupported message type'};
+  }
+
+  if(result){
+    console.log('[Send]', result);
+    socket.send(JSON.stringify(result));
+  }
+}
+
+
+
+var clients = {};
+function loginUser(msgObj, socket){
+  var name = msgObj.from;
+  if(!clients[name]){
+    clients[name] = socket;
+    return {type:'login', from:'server', content:'login success'};
+  }
+  else {
+    return {type:'error', from:'server', content:'name not available'};
+  }
+}
+
+
+function forwardMsg(msgObj, socket){
+  if(msgObj.to && clients[msgObj.to]) {
+    if(clients[msgObj.from] && clients[msgObj.from] == socket) {
+      var receiver = clients[msgObj.to];
+      receiver.send(JSON.stringify(msgObj));
+      return null;
+    }
+    else {
+      //invalid sender
+      return {type:'error', from:'server', content:'invalid sender, did you logged in with your name?'};
+    }
+  }
+  else {
+    //invalid receiver
+    return {type:'error', from:'server', content:'invalid receiver, receiver name does not existed'};
+  }
+}
+
+
+function getUserList(){
+  var names = _.map(clients, function(socket, name){
+    return name;
+  });
+  return {type:'userlist', from:'server', content:names};
+}
