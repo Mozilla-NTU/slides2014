@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Build and deploy Firefox OS apps</title>
+    <link rel="stylesheet" href="../reveal.js-2.6.2/css/reveal.min.css"/>
+    <link rel="stylesheet" href="../reveal.js-2.6.2/css/theme/fxos.css" id="theme"/>
+    <link rel="stylesheet" href="../reveal.js-2.6.2/lib/css/zenburn.css"/>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <!-- Your content goes here -->
+
+          <section>
+              <h1>Deploy thy apps</h1>
+          </section>
+
+          <section>
+              <h2>Firefox Marketplace</h2>
+              <p><b><a href="https://marketplace.firefox.com">marketplace.firefox.com</a></b></p>
+              <p>The official app store for Firefox apps.</p>
+              <p>Privileged can only be hosted in the Firefox Marketplace.</p>
+          </section>
+
+          <section>
+              <h2>Self-host apps</h2>
+              <p>Host your own apps on your own website.</p>
+              <p>Simple API call to install app.</p>
+              <p>Does not work for privileged APIs.</p>
+              <p><a href="https://developer.mozilla.org/en-US/Marketplace/Options/Self_publishing">
+                  Publish hosted and packaged apps yourself
+              </a></p>
+          </section>
+
+          <section>
+              <h2>Share packaged apps</h2>
+              <p>Send your app's zipfile to others.</p>
+              <p>They can push to their devices using WebIDE.</p>
+              <p>Harder method, but it works.</p>
+              <div class="fragment">
+                  <hr>
+                  <p>Import/export API is on its way.</p>
+                  <p>Then you can share an app with a friend from your phone.</p>
+              </div>
+          </section>
+
+          <section>
+              <h2 style="text-transform:none;">Web is your playground</h2>
+              <hr>
+              <h2>HTML5 is the present</h2>
+          </section>
+
+          <section data-background="../images/fox-papertoy.jpg" data-background-size="100vw">
+              <h2 style="text-shadow:0px 0px 10px #000;">Big big big</h2>
+              <h1 style="box-shadow: 0px 0px 5px #000;background-color:rgba(0, 0, 0, 0.25);padding: 10px;">Thanks!</h1>
+              <p style="font-size: 50%;text-align: left; margin-top:200px;position: fixed;">
+                  <a href="https://www.flickr.com/photos/jeanmarcalbert/8606600114">Image: Jean-Marc Albert</a>
+              </p>
+          </section>
+      </div>
+    </div>
+    <script src="../reveal.js-2.6.2/lib/js/head.min.js"></script>
+    <script src="../reveal.js-2.6.2/js/reveal.js"></script>
+    <script>
+     Reveal.initialize({
+       controls: true,
+       progress: true,
+       history: true,
+       dependencies: [
+         { src: '../reveal.js-2.6.2/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+       ],
+     });
+    </script>
+  </body>
+</html>
