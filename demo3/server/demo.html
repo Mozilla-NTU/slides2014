@@ -7,17 +7,15 @@
 
 	<input type="text" id="msg">
 	<button id="send">Send</button>
-	<div id="output">...</div>
 
 	<script>
 
 		//create a WebSocket instance and start connecting to the server
-		client = new WebSocket('ws://localhost:3001');
+		client = new WebSocket('ws://192.168.1.30:3001');
 
 		//when connected
 		client.onopen = function(){
 			console.log('connected');
-			output.innerText = 'Connected :)';
 		}
 
 		//when message is received from the server
@@ -31,7 +29,6 @@
 
 		//query the elements
 		var input = document.getElementById('msg'),
-			output = document.getElementById('output'),
 			button = document.getElementById('send');
 
 		//when click on the button, send the message to server

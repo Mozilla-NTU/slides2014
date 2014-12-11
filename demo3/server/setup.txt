@@ -1,0 +1,5 @@
+1. Download https://raw.githubusercontent.com/Mozilla-NTU/slides2014/gh-pages/demo3/server/demo.html
+2. Open the demo.html page in your editor
+3. Update 'ws://localhost:3001' to 'ws://xxx:3001'
+4. Open the demo.html in browser
+5. Can you see the page said "Connected" ?
