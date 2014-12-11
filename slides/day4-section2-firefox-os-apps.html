@@ -22,9 +22,15 @@
             <p>Bringing the next billions of people online.</p>
           </section>
 
-          <section>
-            <h2>28 countries</h2>
-            <p>Including India, Bangladesh &amp; Philippines.</p>
+          <section data-background="../images/whereisfxos.png" data-background-size="100vw">
+            <h2 style="background:rgba(0,0,0,0.3);">28* countries</h2>
+            <p style="text-shadow: 0px 0px 20px #000;">Including India, Bangladesh &amp; Philippines.</p>
+            <p style="text-align:right;margin-right: 20px;margin-top: 220px;">
+              <small><a href="https://nickdesaulniers.github.io/where-is-firefox-os/">View map</a></small>
+            </p>
+            <p style="text-align:left;">
+              <small>* and growing!</small>
+            </p>
           </section>
         </section>
 
@@ -50,8 +56,58 @@
               </a>
             </p>
           </section>
+
+          <section>
+            <h3>Webapps don't need internet</h3>
+            <h3>Not always</h3>
+            <hr>
+            <p class="fragment">Hosted apps can use LocalStorage, IndexedDB, AppCache&hellip;</p>
+            <p class="fragment">Packaged apps store all assets locally&hellip;</p>
+          </section>
+
+          <section>
+            <h2 style="text-transform: lowercase;">manifest.webapp</h2>
+            <pre><code>
+        {
+          "name": "My App",
+          "description": "My elevator pitch goes here",
+          "launch_path": "/index.html",
+          "icons": { "128": "/img/icon-128.png" },
+          "developer": {
+            "name": "Your name or organization",
+            "url": "http://your-homepage-here.org"
+          }
+        }
+            </code></pre>
+            <p><a href="https://developer.mozilla.org/en-US/docs/Apps/Manifest">App manifest</a></p>
+          </section>
+
+          <section>
+            <h2>Privileged APIs</h2>
+            <p>Some APIs are available only to packaged apps.</p>
+            <p>
+            <p>They need user permission.</p>
+            <div class="fragment">
+              <hr>
+              <p>Permission is asked only when APIs are called,<br>not when apps are installed.</p>
+              <p><br><a href="https://developer.mozilla.org/en-US/docs/Apps/App_permissions">App permisssions</a></p>
+            </div>
+          </section>
+
+          <section>
+            <h2>Certified APIs</h2>
+            <p>Available only to Mozilla's partners and<br> to apps that you push on your phone.</p>
+            <div class="fragment">
+              <hr>
+              <p>APIs with higher privacy concerns or yet experimental.</p>
+            </div>
+          </section>
+
         </section>
 
+        <section>
+          <h3>Let's build some apps!</h3>
+        </section>
       </div>
     </div>
     <script src="../reveal.js-2.6.2/lib/js/head.min.js"></script>
