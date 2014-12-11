@@ -1,0 +1,39 @@
+html {
+  font-size: 16pt;
+  font-family: 'Arial', Sans-serif;
+  background: linear-gradient(0deg, #000033, #FFF) no-repeat;
+  min-height: 100%;
+}
+
+p {
+  color: #F4640A;
+  font-size: 12pt;
+}
+
+body > img {
+  float: left;
+  margin-right: 20px;
+}
+
+ul {
+  position: relative;
+  left: 30px;
+}
+
+div {
+  background-color: rgba(0, 33, 0, 0.1);
+}
+
+#message_box {
+  clear: both;
+  border: 1px solid black;
+  min-height: 40px;
+  background-color: white;
+  padding-left: 25px;
+}
+
+#message_box > img {
+  max-width: 100px;
+  min-height: 100px;
+}
+
