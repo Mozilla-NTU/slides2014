@@ -94,10 +94,17 @@ console.log("Listening on port " + PORT);
 /**
 protocol:
 {
-  from:<YOUR_NAME>, 
-  type:<text|login|logout|...>, 
+  from:<SENDER_NAME>, 
+  [to:<RECEIVER_NAME>,]
+  type:<text|login|userlist|msg|...>, 
   content:<CONTENT>
 }
+
+examples:
+get an echo:        {from:'xxx', type:'text', content:'hello server'}
+login:              {from:'xxx', type:'login', content:''}
+get the user list:  {from:'xxx', type:'userlist', content:''}
+send message:       {from:'xxx', to:'xxx', type:'msg', content:'hello'}
 */
 function handleReceivedMessage(msgObj, socket){
   console.log('[Receive]', msgObj);
@@ -123,7 +130,8 @@ function handleReceivedMessage(msgObj, socket){
       break;
 
     default:
-      result = {type:'error', from:'server', content:'unsupported message type'};
+      //result = {type:'error', from:'server', content:'unsupported message type'};
+      result = forwardMsg(msgObj, socket);
   }
 
   if(result){
