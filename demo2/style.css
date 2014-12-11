@@ -76,5 +76,19 @@ footer {
 
 #userlist_box {
   background-color: #FFF;
+}
+
+#received_messages_box {
+  background-color: #CCC;
+}
+#received_messages_box > div:hover {
+  background-color: #FF0;
+}
+
+.listbox{
   padding: 10px;
+}
+
+.msgImage{
+  max-width: 150px;
 }

@@ -70,6 +70,10 @@ window.addEventListener('DOMContentLoaded', function () {
             case 'userlist':
                 showUserList(data.content);
                 break;
+
+            case 'msg':
+                showReceivedMessage(data.from, data.content);
+                break;
         }
     });
 
@@ -110,6 +114,24 @@ window.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    function showReceivedMessage(from, content){
+        var receivedMsgBox = document.getElementById('received_messages_box');
+        var htmlCode = '';
+
+        if(content.match(/\.png$/)) {
+            htmlCode = '<img class="msgImage" src="' + content + '">';
+        }
+        else if(content.indexOf('http://') == 0){
+            htmlCode = '<a href="' + content + '" target="_blank">link</a>';
+        }
+        else {
+            htmlCode = content;
+        }
+        var messageItem = document.createElement('div');
+        messageItem.innerHTML = '<b>' + from + '</b> : ' + htmlCode;
+        receivedMsgBox.appendChild(messageItem);
+    }
+
     function sendMessageToServer(){
         var receiverInput = document.getElementById('receiver_input'),
             messageInput = document.getElementById('message_input'),
@@ -123,6 +145,7 @@ window.addEventListener('DOMContentLoaded', function () {
                 content: messageContent
             };
             client.send(JSON.stringify(msg));
+            showReceivedMessage(getName(), messageContent);
         }
         else {
             alert('Please fill in receiver name and message content!');
