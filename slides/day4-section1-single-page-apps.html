@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Single page apps</title>
+    <link rel="stylesheet" href="../reveal.js-2.6.2/css/reveal.css"/>
+    <link rel="stylesheet" href="../reveal.js-2.6.2/css/theme/beige.css" id="theme"/>
+    <link rel="stylesheet" href="../reveal.js-2.6.2/lib/css/zenburn.css"/>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1>Single page apps</h1>
+          <h2>Multiple views. One HTML.</h2>
+        </section>
+
+        <section>
+          <h1>Stone age</h1>
+          <pre>
+
+- index.html
+          </pre>
+        </section>
+
+        <section>
+          <h1>Bronze age</h1>
+          <pre>
+
+- index.html
+- script.js
+- style.css
+          </pre>
+        </section>
+
+        <section>
+          <h1>Iron age</h1>
+          <pre>
+
+- about.html
+- contact.html
+- index.html
+- products.html
+- css/
+    - style.css
+- js/
+    - jquery.js
+    - script.js
+          </pre>
+        </section>
+
+        <section>
+          <h1>Modern age</h1>
+          <pre>
+
+- index.html
+- css/
+    - style.css
+- js/
+    - controllers.js
+    - init.js
+    - model.js
+    - presenters.js
+    - routes.js
+- views/
+    - about.tmpl
+    - contact.tmpl
+    - home.tmpl
+    - products.tmpl
+          </pre>
+        </section>
+
+        <section>
+          <h2>/MV(C|P|VM)/</h2>
+          <p>Model-View-Controller</p>
+          <p>Model-View-Presenter</p>
+          <p>Model-View-View-Model</p>
+        </section>
+
+        <section>
+          <h2>Model</h2>
+          <pre><code>
+var Cat = function (options) {
+    this.colour = options.colour;
+    this.type = options.type
+    this.aim = options.aim;
+};
+
+Cat.prototype.setAim = function () {
+    return "Beginning " + this.aim;
+};
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>View</h2>
+          <pre><code>
+            <h2>Cat Info</h2>
+            <p><% name %></p>
+            <p>This <% type %> cat is aiming for <% aim %>!</p>
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Presenter/Controller</h2>
+          <pre><code>
+route.get("#/about/grumpy", function () {
+    var mycat = new Cat({
+        name: "Tardar Sauce",
+        type: "Grumpy",
+        aim: "World Domination"
+    });
+
+    // Bind data to template and render it
+    render("cat.tmpl", mycat);
+});
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Result</h2>
+          <pre><code>
+            <h2>Cat Info</h2>
+            <p>Tardar Sauce</p>
+            <p>This Grumpy cat is aiming for World Domination!</p>
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Useful frameworks</h2>
+          <p>
+            BackboneJS<br>
+            AngularJS<br>
+            RiotJS<br>
+            &hellip;and many more&hellip;
+          </p>
+        </section>
+
+      </div>
+    </div>
+    <script src="../reveal.js-2.6.2/lib/js/head.min.js"></script>
+    <script src="../reveal.js-2.6.2/js/reveal.js"></script>
+    <script>
+     Reveal.initialize({
+       controls: true,
+       progress: true,
+       history: true,
+       dependencies: [
+         { src: '../reveal.js-2.6.2/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+       ],
+     });
+    </script>
+  </body>
+</html>
