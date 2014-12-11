@@ -75,11 +75,12 @@ new (require("ws").Server)({ port: PORT }).on("connection", function (socket) {
     });
   }.bind(this));
 
-  socket.on("close", function () {
-    console.log(--numClients + " clients");
+  socket.on("close", function () { 
+
     for(var clientName in clients){
       if(clients[clientName] == socket){
         delete clients[clientName];
+        console.log(--numClients + " clients, -" + clientName);
       }
     }
   });
@@ -129,7 +130,8 @@ function handleReceivedMessage(msgObj, socket){
       break;
 
     default:
-      result = {type:'error', from:'server', content:'unsupported message type'};
+      //result = {type:'error', from:'server', content:'unsupported message type'};
+      result = forwardMsg(msgObj, socket);
   }
 
   if(result){
