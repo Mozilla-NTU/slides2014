@@ -75,12 +75,11 @@ new (require("ws").Server)({ port: PORT }).on("connection", function (socket) {
     });
   }.bind(this));
 
-  socket.on("close", function () { 
-
+  socket.on("close", function () {
+    console.log(--numClients + " clients");
     for(var clientName in clients){
       if(clients[clientName] == socket){
         delete clients[clientName];
-        console.log(--numClients + " clients, -" + clientName);
       }
     }
   });
