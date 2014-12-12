@@ -39,7 +39,11 @@ new (require("ws").Server)({ port: PORT }).on("connection", function (socket) {
       socket.send(serverError(
         "Rate limit: You may only send 1 message per " + RATE_LIMIT + "ms"
       ));
-      socket.close();
+      try {
+        socket.close();
+      } catch (e) {
+        console.error("tried to close a socket that the client already closed");
+      }
       console.log("A client was rate limited");
       return;
     }
@@ -57,8 +61,8 @@ new (require("ws").Server)({ port: PORT }).on("connection", function (socket) {
       if (client !== socket) {
         try {
           client.send(msg);
-        } catch (_) {
-          console.log('client closed too soon');
+        } catch (e)  {
+          console.error("did not send to disconnected client");
         }
       }
     });
